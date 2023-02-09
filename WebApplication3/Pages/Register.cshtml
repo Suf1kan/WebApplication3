@@ -1,0 +1,119 @@
+﻿@page
+@model WebApplication3.Pages.RegisterModel
+@{
+}
+
+<div class="container mt-5">
+
+	<div class="row justify-content-center align-items-center">
+
+		<div class="col-sm-12 col-md-12 col-lg-4">
+			<h1 class="mb-3">Register </h1>
+
+			<form method="post">
+				<div asp-validation-summary="All" class="text-danger"></div>
+
+				<div class="row mb-3">
+					<label class="form-label" asp-for="RModel.FirstName">First Name</label>
+					<input type="Text" asp-for="RModel.FirstName" class="form-control" />
+					<span asp-validation-for="RModel.FirstName" class="text-danger"></span>
+				</div>
+
+				<div class="row mb-3">
+					<label class="form-label" asp-for="RModel.LastName">Last Name</label>
+					<input type="Text" asp-for="RModel.LastName" class="form-control" />
+					<span asp-validation-for="RModel.LastName" class="text-danger"></span>
+				</div>
+
+				<div class="row mb-3">
+					<label class="form-label" asp-for="RModel.Gender"></label>
+					<div class="col-sm-10 d-flex align-items-center">
+						<div class="form-check form-check-inline">
+							@Html.RadioButtonFor(m => m.RModel.Gender, "M", new {@class = "form-check-input"})
+							<label class="form-check-label">Male</label>
+						</div>
+						<div class="form-check form-check-inline">
+							@Html.RadioButtonFor(m => m.RModel.Gender, "F", new {@class = "form-check-input"})
+							<label class="form-check-label">Female</label>
+						</div>
+						<span asp-validation-for="RModel.Gender" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="form-label" asp-for="RModel.NRIC"></label>
+					<input class="form-control" asp-for="RModel.NRIC" oninput="this.value = this.value.toUpperCase()" />
+					<span asp-validation-for="RModel.NRIC" class="text-danger"></span>
+
+				</div>
+
+				<div class="row mb-3">
+					<label class="form-label" asp-for="RModel.Email">Email Address</label>
+					<input type="Text" asp-for="RModel.Email" class="form-control" />
+					<span asp-validation-for="RModel.Email" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="RModel.Password">Password</label>
+					<input type="password" id="pwd" asp-for="RModel.Password" class="form-control" onkeyup="validate()"/>
+					<span asp-validation-for="RModel.Password" class="text-danger"></span>
+				</div>
+				<span id="errormsg" style="visibility:visible"></span>
+
+				<div class="mb-3">
+
+					<label class="form-label" asp-for="RModel.ConfirmPassword">Confirm Password</label>
+					<input type="password" asp-for="RModel.ConfirmPassword" class="form-control" />
+					<span asp-validation-for="RModel.ConfirmPassword" class="text-danger"></span>
+				</div>
+
+				<div class="row mb-3">
+					<label class="form-label" asp-for="RModel.BirthDate"></label>
+					<input type="date" class="form-control" asp-for="RModel.BirthDate" />
+					<span asp-validation-for="RModel.BirthDate" class="text-danger"></span>
+
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" asp-for="Resume">Resume</label>
+					<input type="file" accept=".docx,.pdf" asp-for="Resume" class="form-control" />
+					<span asp-validation-for="RModel.Resume" class="text-danger"></span>
+				</div>
+
+
+				<div class="row mb-3">
+					<label class="form-label" asp-for="RModel.WhoamI">Describe yourself</label>
+					<input type="Text" asp-for="RModel.WhoamI" class="form-control" />
+					<span asp-validation-for="RModel.WhoamI" class="text-danger"></span>
+				</div>
+
+				<div class="row mb-3">
+					<button type="submit" class="btn btn-primary">Register</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	// Change & Edit values
+	function validate() {
+		var pwd = document.getElementById("pwd").value;
+		var errormsg = document.getElementById("errormsg");
+
+		var decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$/;
+
+		if (pwd.match(decimal)) {
+			errormsg.innerHTML = "Ok";
+
+			errormsg.style.color = "Blue"
+		}
+		else {
+			errormsg.innerHTML = "Password requirements not met";
+			errormsg.style.color = "Red"
+		}
+
+
+
+	}
+</script>

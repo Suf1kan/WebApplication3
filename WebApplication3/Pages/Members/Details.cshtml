@@ -1,0 +1,22 @@
+﻿@page
+@using Microsoft.AspNetCore.DataProtection;
+@model WebApplication3.Pages.Members.DetailsModel
+@{
+    ViewData["Title"] = "Member Details";
+    var dataProtectionProvider = DataProtectionProvider.Create("EncryptData");
+    var protector = dataProtectionProvider.CreateProtector("mykey");
+    var UserNRIC = HttpContext.Session.GetString("NRIC");
+    var User = Model._memberService.GetApplicationUserByNRIC(UserNRIC);
+}
+
+<h1>
+    Name: @protector.Unprotect(User.FirstName) @protector.Unprotect(User.LastName)
+</h1>
+
+<p>
+    Gender: @protector.Unprotect(User.Gender)
+</p>
+
+<p>
+    WhoamI: @protector.Unprotect(User.WhoamI)
+</p>
